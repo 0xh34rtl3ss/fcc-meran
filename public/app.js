@@ -64,14 +64,6 @@ ioConnection.on('roomUser', (msg) => {
     $('#roomUserText').html(`Viewers: <b>${msg.viewerCount.toLocaleString()}</b>`)
 })
 
-// Chat events
-ioConnection.on('member', (msg) => {
-    addChatItem('#21b2c2', msg, 'joined', true);
-})
-
-ioConnection.on('chat', (msg) => {
-    addChatItem('', msg, msg.comment);
-})
 
 ioConnection.on('gift', (msg) => {
     addChatItem('#c2a821', msg, `Gifted giftId=${msg.giftId}`);
