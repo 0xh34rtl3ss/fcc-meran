@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
 
     socket.on('setUniqueId', (uniqueId, options) => {
 
-        let thisConnection = new WebcastPushConnection(uniqueId, options);
+        let thisConnection = new WebcastPushConnection(uniqueId, { enableExtendedGiftInfo: true,});
 
         thisConnection.connect().then(state => {
             disconnectChat();

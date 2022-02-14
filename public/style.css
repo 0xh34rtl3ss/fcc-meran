@@ -27,12 +27,15 @@ a {
 }
 
 .chat {
-    overflow-y: scroll;
-    max-height: calc(100vh - 240px);
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+      
 }
 
 .chat img {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%
 }

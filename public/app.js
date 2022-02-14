@@ -1,4 +1,5 @@
 let ioConnection = new io();
+var count =100;
 
 $(document).ready(() => {
     $('#connectButton').click(connect);
@@ -31,11 +32,9 @@ function addChatItem(color, data, text, summarize) {
     $('.chat').find('.temporary').remove();;
 
     $('.chat').append(`
-        <div class=${summarize ? 'temporary' : 'static'}>
+        <div class=static>
             <img src="${data.profilePictureUrl}">
             <span>
-                <b>${data.uniqueId}:</b> 
-                <span style="color:${color}">${sanitize(text)}</span>
             </span>
         </div>
     `);
@@ -48,7 +47,8 @@ function addChatItem(color, data, text, summarize) {
 
 // Control events
 ioConnection.on('setUniqueIdSuccess', (state) => {
-    $('#stateText').text(`Connected to roomId ${state.roomId}`);
+    $('#stateText').text(`Connected`);
+    //$('#stateText').text(`Connected to roomId ${state.roomId}`);
 })
 
 ioConnection.on('setUniqueIdFailed', (errorMessage) => {
@@ -61,7 +61,7 @@ ioConnection.on('streamEnd', () => {
 
 // Room stats
 ioConnection.on('roomUser', (msg) => {
-    $('#roomUserText').html(`Viewers: <b>${msg.viewerCount.toLocaleString()}</b>`)
+    $('#roomUserText').html(`Count: <b>${count}</b>, Viewers: <b>${msg.viewerCount.toLocaleString()}</b>`);
 })
 
 // // Chat events
@@ -69,10 +69,13 @@ ioConnection.on('roomUser', (msg) => {
 //     addChatItem('#21b2c2', msg, 'joined', true);
 // })
 
-ioConnection.on('chat', (msg) => {
-    addChatItem('', msg, msg.comment);
-})
+// ioConnection.on('chat', (msg) => {
+//     console.log(msg.comment)
+//     addChatItem('', msg, msg.comment);
+// })
 
 ioConnection.on('gift', (msg) => {
+    count--;
+    console.log(msg)
     addChatItem('#c2a821', msg, `Gifted giftId=${msg.giftId}`);
 })
